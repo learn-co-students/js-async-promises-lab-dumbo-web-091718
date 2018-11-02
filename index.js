@@ -14,6 +14,7 @@ function appendQuestion(question) {
 
 function askQuestionThen(time) {
   question = questions[0];
+  appendQuestion(question)
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve(question);
@@ -29,13 +30,7 @@ function removeQuestion() {
 }
 
 function askQuestionThenRemoveQuestion(time) {
-  questionContainer.innerHTML = question.questionText;
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      questionContainer.innerHTML = '';
-      resolve();
-    }, time);
-  })
+  return askQuestionThen(time).then(removeQuestion);
 }
 
 function trueAndFalseButtons() {
@@ -45,12 +40,15 @@ function trueAndFalseButtons() {
 }
 
 function toggleTrueAndFalseButtons() {
-  const btns = document.getElementsByClassName('btn');
-  for (let btn of btns) {
+  for (let btn of trueAndFalseButtons()) {
     btn.classList.toggle('hide');
   } 
 }
 
 function displayQuestionOnClick() {
-  
+  let btn = document.querySelector('a.waves-effect');
+  btn.addEventListener('click', () => {
+    toggleTrueAndFalseButtons();
+    askQuestionThenRemoveQuestion(7000);
+  })
 }
