@@ -114,6 +114,7 @@ describe('index', () => {
       let btn = document.querySelector('.btn')
       btn.dispatchEvent(event)
       let questionContainer = document.querySelector('.question-container')
+      toggleTrueAndFalseButtons();
       let btns = document.querySelector('.true-false-list').querySelectorAll('.btn')
       setTimeout(function(){
         expect(Array.from(btns[0].classList)).to.not.include('hide')
